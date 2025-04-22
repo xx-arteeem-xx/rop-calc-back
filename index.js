@@ -1,26 +1,18 @@
-const express = require('express')
-const app = express()
-const port = 3000
+const express = require('express');
+require('dotenv').config();
+const app = express();
+const port = 3000;
 
-const data = [
-  {
-    "name": "123",
-    "desc": "test"
-  },
-  {
-    "name": "456",
-    "desc": "test"
-  },
-  {
-    "name": "789",
-    "desc": "test"
-  }
-] 
+const data = {
+    "DB_NAME": process.env.DB_NAME || "testDB",
+    "DB_HOST": process.env.DB_HOST || "localhost",
+    "DB_PORT": process.env.DB_PORT || "5432",
+};
 
 app.get('/', (req, res) => {
-  res.json(data)
-})
+    res.json(data);
+});
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+    console.log(`Example app listening on port ${port}`);
+});
