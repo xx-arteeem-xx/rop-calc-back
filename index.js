@@ -2,6 +2,7 @@
 const express = require('express');
 require('dotenv').config();
 const pgp = require("pg-promise")();
+const logger = require("./logger/logger.js");
 
 
 // ______________ НАСТРОЙКА ПАРАМЕТРОВ ПРИЛОЖЕНИЯ ______________________________
@@ -13,25 +14,45 @@ const port = 3000;
 
 // ________________________ МЕТОДЫ ____________________________________________
 
-// МЕТОД 1. При переходе на страницу "/api/getusers" получение списка всех пользователей.
+// || МЕТОД 1. При переходе на страницу "/api/getusers" получение списка всех пользователей. ||
 app.get('/api/getusers/', (req, res) => {
     db.any("SELECT * FROM users")
         .then(function (data) {
             res.json(data);
+            logger.info({
+                data,
+                "path": req.path,
+                "ip": req.ip
+            });
         })
         .catch(function (error) {
             res.json({ error });
+            logger.error({
+                error,
+                "path": req.path,
+                "ip": req.ip
+            });
         });
 });
 
-// МЕТОД 2. При переходе на страницу "/api/getusers/${id}" получение пользователя по ID.
+// || МЕТОД 2. При переходе на страницу "/api/getusers/${id}" получение пользователя по ID. ||
 app.get('/api/getusers/:id', (req, res) => {
     db.one(`SELECT * FROM users WHERE id=${req.params.id}`)
         .then(function (data) {
             res.json(data);
+            logger.info({
+                data,
+                "path": req.path,
+                "ip": req.ip
+            });
         })
         .catch(function (error) {
             res.json({ error });
+            logger.error({
+                error,
+                "path": req.path,
+                "ip": req.ip
+            });
         });
 });
 
