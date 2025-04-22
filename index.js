@@ -31,7 +31,7 @@ app.get('/api/getusers/:id', (req, res) => {
             res.json(data);
         })
         .catch(function (error) {
-            res.send(`Ошибка: ${error}`);
+            res.json({ error });
         });
 });
 
