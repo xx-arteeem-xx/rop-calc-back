@@ -18,7 +18,7 @@ const data = [
 ] 
 
 app.get('/', (req, res) => {
-  res.send('Timeweb Cloud + Express = ️ ❤️')
+  res.json(data)
 })
 
 app.listen(port, () => {
