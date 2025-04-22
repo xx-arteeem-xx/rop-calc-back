@@ -20,7 +20,6 @@ app.get('/api/getusers/', (req, res) => {
         .then(function (data) {
             res.json(data);
             logger.info({
-                data,
                 "path": req.path,
                 "ip": req.ip
             });
@@ -28,7 +27,7 @@ app.get('/api/getusers/', (req, res) => {
         .catch(function (error) {
             res.json({ error });
             logger.error({
-                error,
+                "error": error.name,
                 "path": req.path,
                 "ip": req.ip
             });
@@ -41,7 +40,6 @@ app.get('/api/getusers/:id', (req, res) => {
         .then(function (data) {
             res.json(data);
             logger.info({
-                data,
                 "path": req.path,
                 "ip": req.ip
             });
@@ -49,7 +47,7 @@ app.get('/api/getusers/:id', (req, res) => {
         .catch(function (error) {
             res.json({ error });
             logger.error({
-                error,
+                "error": error.name,
                 "path": req.path,
                 "ip": req.ip
             });
