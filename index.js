@@ -1,27 +1,11 @@
-import express from "express"
-
-const app = express();
-const port = 3000;
-
-const data = [
-    {
-        "name": "test1",
-        "desc": "lorem1"
-    },
-    {
-        "name": "test2",
-        "desc": "lorem2"
-    },
-    {
-        "name": "test3",
-        "desc": "lorem3"
-    },
-]
+const express = require('express')
+const app = express()
+const port = 3000
 
 app.get('/', (req, res) => {
-  res.json(data);
-});
+  res.send('Timeweb Cloud + Express = ️ ❤️')
+})
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
-});
+  console.log(`Example app listening on port ${port}`)
+})
