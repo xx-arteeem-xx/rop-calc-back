@@ -55,19 +55,27 @@ app.get('/api/getusers/:id', (req, res) => {
         });
 });
 
-// || МЕТОД 3. При переходе на страницу "/api/calc/income/budget" получение пользователя по ID. ||
-app.post('/api/calc/income/budget', (req, res) => {
+// || МЕТОД 3. При переходе на страницу "/api/calc/income/" Подсчет количества денег, которые приносят студенты. ||
+// || Необходимо передать 2 массива: cash - в котором указать стоимость курса, и массив students - в нем количество учащихся на каждом курсе||
+app.post('/api/calc/income/', (req, res) => {
     if (!req.body) {
         return response.sendStatus(400);
     };
     try {
-        res.json(req.body[1]);
+        let result = 0;
+        if (req.body.cash.length != req.body.students.length){
+            throw new Error("Количество элементов этих массивов должно совпадать!");
+        }
+        for (let i = 0; i < req.body.cash.length; i++) {
+            result += req.body.cash[i] * req.body.students[i]
+        };
+        res.json(result);
         logger.info({
             "path": req.path,
             "ip": req.ip
         });
     } catch (error) {
-        res.json({ error });
+        res.status(500).json({ error });
         logger.error({
             "error": error.name,
             "path": req.path,
