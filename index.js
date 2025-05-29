@@ -9,6 +9,7 @@ const logger = require("./logger/logger.js");
 const dbPath = `postgres://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`
 const db = pgp(dbPath);
 const app = express();
+app.use(express.json());
 const port = 3000;
 
 
@@ -52,6 +53,27 @@ app.get('/api/getusers/:id', (req, res) => {
                 "ip": req.ip
             });
         });
+});
+
+// || МЕТОД 3. При переходе на страницу "/api/calc/income/budget" получение пользователя по ID. ||
+app.post('/api/calc/income/budget', (req, res) => {
+    if (!req.body) {
+        return response.sendStatus(400);
+    };
+    try {
+        res.json(req.body[1]);
+        logger.info({
+            "path": req.path,
+            "ip": req.ip
+        });
+    } catch (error) {
+        res.json({ error });
+        logger.error({
+            "error": error.name,
+            "path": req.path,
+            "ip": req.ip
+        });
+    }
 });
 
 
