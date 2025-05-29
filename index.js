@@ -15,47 +15,7 @@ const port = 3000;
 
 // ________________________ МЕТОДЫ ____________________________________________
 
-// || МЕТОД 1. При переходе на страницу "/api/getusers" получение списка всех пользователей. ||
-app.get('/api/getusers/', (req, res) => {
-    db.any("SELECT * FROM users")
-        .then(function (data) {
-            res.json(data);
-            logger.info({
-                "path": req.path,
-                "ip": req.ip
-            });
-        })
-        .catch(function (error) {
-            res.json({ error });
-            logger.error({
-                "error": error.name,
-                "path": req.path,
-                "ip": req.ip
-            });
-        });
-});
-
-// || МЕТОД 2. При переходе на страницу "/api/getusers/${id}" получение пользователя по ID. ||
-app.get('/api/getusers/:id', (req, res) => {
-    db.one(`SELECT * FROM users WHERE id=${req.params.id}`)
-        .then(function (data) {
-            res.json(data);
-            logger.info({
-                "path": req.path,
-                "ip": req.ip
-            });
-        })
-        .catch(function (error) {
-            res.json({ error });
-            logger.error({
-                "error": error.name,
-                "path": req.path,
-                "ip": req.ip
-            });
-        });
-});
-
-// || МЕТОД 3. При переходе на страницу "/api/calc/income/" Подсчет количества денег, которые приносят студенты. ||
+// || МЕТОД 1. При переходе на страницу "/api/calc/income/" Подсчет количества денег, которые приносят студенты. ||
 // || Необходимо передать 2 массива: cash - в котором указать стоимость курса, и массив students - в нем количество учащихся на каждом курсе||
 app.post('/api/calc/income/', (req, res) => {
     if (!req.body) {
