@@ -19,7 +19,7 @@ const port = 3000;
 // || Необходимо передать 2 массива: cash - в котором указать стоимость курса, и массив students - в нем количество учащихся на каждом курсе||
 app.post('/api/calc/income/', (req, res) => {
     if (!req.body) {
-        return response.sendStatus(400);
+        return res.sendStatus(400);
     };
     try {
         let result = 0;
@@ -29,7 +29,7 @@ app.post('/api/calc/income/', (req, res) => {
         for (let i = 0; i < req.body.cash.length; i++) {
             result += req.body.cash[i] * req.body.students[i]
         };
-        res.json(result);
+        res.status(200).json(result);
         logger.info({
             "path": req.path,
             "ip": req.ip
