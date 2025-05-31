@@ -478,11 +478,6 @@ app.post('/api/calc/', (req, res) => {
                     oneStudent
                 }
             ]
-            
-
-            
-
-
         });
         logger.info({
             "path": req.path,
