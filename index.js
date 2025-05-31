@@ -166,11 +166,11 @@ app.post('/api/calc/cost/', (req, res) => {
         // Итого ППС
         sumpps = group + flow + subgroup + ind;
         // АУП
-        aup = sumpps * aupKoef;
+        aup = parseInt(sumpps * aupKoef);
         // Прочее
-        other = sumpps * otherKoef;
+        other = parseInt(sumpps * otherKoef);
         // Налоги
-        tax = sumpps  * taxKoef;
+        tax = parseInt(sumpps  * taxKoef);
         // Общие расходы
         sum = sumpps + aup + other + tax;
 
@@ -239,9 +239,9 @@ app.post('/api/calc/finres/', (req, res) => {
         // Рентабельность
         efficiency = -1 + (income / cost);
         // На одну группу
-        oneGroup = finres / groupCount;
+        oneGroup = parseInt(finres / groupCount);
         // На одного студента
-        oneStudent = finres / studentCount;
+        oneStudent = parseInt(finres / studentCount);
 
         // _______________ ОТПРАВЛЯЕМ ДАННЫЕ ____________________________________
         res.status(200).json({
@@ -312,16 +312,16 @@ app.post('/api/calc/finres/', (req, res) => {
 //             "subgroup": 2516000,
 //             "ind": 4198908,
 //             "sumpps": 13767108,
-//             "aup": 5919856.4399999995,
-//             "other": 5919856.4399999995,
-//             "tax": 4157666.616,
-//             "sumCost": 29764487.495999996
+//             "aup": 5919856,
+//             "other": 5919856,
+//             "tax": 4157666,
+//             "sumCost": 29764486
 //         },
 //         {
-//             "finres": -6123657.495999996,
-//             "efficiency": -0.2057370380330904,
-//             "oneGroup": -556696.1359999996,
-//             "oneStudent": -35810.86254970758
+//             "finres": -6123656,
+//             "efficiency": -0.2057369981124485,
+//             "oneGroup": -556696,
+//             "oneStudent": -35810
 //         }
 //     ]
 // }
@@ -406,11 +406,11 @@ app.post('/api/calc/', (req, res) => {
         // Итого ППС
         sumpps = group + flow + subgroup + ind;
         // АУП
-        aup = sumpps * aupKoef;
+        aup = parseInt(sumpps * aupKoef);
         // Прочее
-        other = sumpps * otherKoef;
+        other = parseInt(sumpps * otherKoef);
         // Налоги
-        tax = sumpps  * taxKoef;
+        tax = parseInt(sumpps  * taxKoef);
         // Общие расходы
         sumCost = sumpps + aup + other + tax;
 
@@ -419,9 +419,9 @@ app.post('/api/calc/', (req, res) => {
         // Рентабельность
         efficiency = -1 + (sumIncome / sumCost);
         // На одну группу
-        oneGroup = finres / groupCount;
+        oneGroup = parseInt(finres / groupCount);
         // На одного студента
-        oneStudent = finres / studentCount;
+        oneStudent = parseInt(finres / studentCount);
 
         // _______________ ОТПРАВЛЯЕМ ДАННЫЕ ____________________________________
         res.status(200).json({
