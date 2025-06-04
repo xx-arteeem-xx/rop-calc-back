@@ -140,13 +140,13 @@ nodemon index
 #### Пример ответа: 
 ```json
 {
-    "result": [
-        {
+    "result": {
+        "income": {
             "budget": 5065130,
             "commerce": 18575700,
             "sumIncome": 23640830
         },
-        {
+        "cost": {
             "group": 5050500,
             "flow": 2001700,
             "subgroup": 2516000,
@@ -157,12 +157,12 @@ nodemon index
             "tax": 4157666,
             "sumCost": 29764486
         },
-        {
+        "finres": {
             "finres": -6123656,
             "efficiency": -0.2057369981124485,
             "oneGroup": -556696,
             "oneStudent": -35810
         }
-    ]
+    }
 }
 ```

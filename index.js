@@ -3,6 +3,7 @@ const express = require('express');
 require('dotenv').config();
 const pgp = require("pg-promise")();
 const logger = require("./logger/logger.js");
+const cors = require("cors");
 
 
 // ______________ НАСТРОЙКА ПАРАМЕТРОВ ПРИЛОЖЕНИЯ ______________________________
@@ -11,6 +12,12 @@ const db = pgp(dbPath);
 const app = express();
 app.use(express.json());
 const port = 3000;
+const corsOptions ={
+    origin: '*', 
+    credentials: true,
+    optionSuccessStatus: 200,
+};
+app.use(cors(corsOptions));
 
 
 // ________________________ МЕТОДЫ ____________________________________________
@@ -329,13 +336,13 @@ app.post('/api/calc/finres/', (req, res) => {
 // 
 // || Пример ответа: 
 // {
-//     "result": [
-//         {
+//     "result": {
+//         "income": {
 //             "budget": 5065130,
 //             "commerce": 18575700,
 //             "sumIncome": 23640830
 //         },
-//         {
+//         "cost": {
 //             "group": 5050500,
 //             "flow": 2001700,
 //             "subgroup": 2516000,
@@ -346,13 +353,13 @@ app.post('/api/calc/finres/', (req, res) => {
 //             "tax": 4157666,
 //             "sumCost": 29764486
 //         },
-//         {
+//         "finres": {
 //             "finres": -6123656,
 //             "efficiency": -0.2057369981124485,
 //             "oneGroup": -556696,
 //             "oneStudent": -35810
 //         }
-//     ]
+//     }
 // }
 app.post('/api/calc/', (req, res) => {
     try {
@@ -454,13 +461,13 @@ app.post('/api/calc/', (req, res) => {
 
         // _______________ ОТПРАВЛЯЕМ ДАННЫЕ ____________________________________
         res.status(200).json({
-            "result": [
-                {
+            "result": {
+                "income": {
                     budget,
                     commerce,
                     sumIncome
                 },
-                {
+                "cost": {
                     group,
                     flow,
                     subgroup,
@@ -471,13 +478,13 @@ app.post('/api/calc/', (req, res) => {
                     tax,
                     sumCost
                 },
-                {
+                "finres": {
                     finres,
                     efficiency,
                     oneGroup,
                     oneStudent
                 }
-            ]
+            }
         });
         logger.info({
             "path": req.path,
